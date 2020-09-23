@@ -16,4 +16,4 @@ class Bot(models.Model):
     userId = models.ForeignKey('user.User', on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'bit'
+        db_table = 'bot'

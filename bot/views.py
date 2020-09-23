@@ -1,3 +1,4 @@
+import traceback
 from bot.models import Bot
 from user.models import User
 from util.utils import *
@@ -54,7 +55,16 @@ def bot_info(request):
 
 
 def upload_code(request):
+    # try:
+    #     dict = request.POST
+    #     botId = dict.get('botId')
+    #     botCode = dict.get('code')
+    # except:
+    #     traceback.print_exc()
+    #     return result_fail('Unexpected Error')
     pass
+
+
 
 
 def start_bot(request):
