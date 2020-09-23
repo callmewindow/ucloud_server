@@ -81,7 +81,8 @@ DATABASES = {
         'NAME': 'ucloud',
         'USER': 'root',
         'PASSWORD': 'Beacon123!',
-        'HOST': ''
+        'HOST': '',
+        'PORT':'3306'
     }
 }
 
