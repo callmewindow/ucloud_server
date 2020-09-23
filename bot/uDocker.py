@@ -13,6 +13,15 @@ def init():
     except:
         traceback.print_exc()
         log('[uDocker] Unable to connect to docker client.')
+def close():
+    try:
+        global client
+        if client != None:
+            client.close()
+        log('[uDocker] Client is closed.')
+    except:
+        traceback.print_exc()
+        log('[uDocker] Unable to close the client.')
 def wrapper(func):
     def innerFunc(*args,**kwargs):
         if client != None:
