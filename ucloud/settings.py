@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'ucloud.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'beacon',
-        'USER': 'root',
+        'NAME': 'ucloud',
+        'USER': 'ucloudadmin',
         'PASSWORD': 'Beacon123!',
-        'HOST': 'localhost',
+        'HOST': 'localhost'
     }
 }
 
