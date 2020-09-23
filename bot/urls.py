@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'delete', delete_bot),
     url(r'getAll', get_all_bots),
     url(r'fork', fork_bot),
+    url(r'uploadCode',upload_code)
 ]

@@ -1,8 +1,12 @@
 import traceback
+import os
+import subprocess
 from bot.models import Bot
 from user.models import User
 from util.utils import *
 
+# mkpath = "E:\\2020\\pathtest\\"
+mkpath = "/home/ucloud/"
 
 def create_bot(request):
     args = request.POST
@@ -18,6 +22,15 @@ def create_bot(request):
         return result_fail('该名称已被占用')
     bot.botIntro = args.get('botIntro')
     bot.save()
+    path = mkpath + str(bot.id)
+    createfile(path)
+    os.chdir(path)
+    password = open('.password','w',encoding='utf8')
+    password.write(bot.botQQ+ ' ' + bot.botPwd)
+    password.close()
+    code = open('bot.py','w',encoding='utf8')
+    code.close()
+    createPy('')
     # TODO: python docker
     data = {
         'botId': bot.id
@@ -55,14 +68,33 @@ def bot_info(request):
 
 
 def upload_code(request):
-    # try:
-    #     dict = request.POST
-    #     botId = dict.get('botId')
-    #     botCode = dict.get('code')
-    # except:
-    #     traceback.print_exc()
-    #     return result_fail('Unexpected Error')
-    pass
+    try:
+        dict = request.POST
+        botId = dict.get('botId')
+        botCode = dict.get('code')
+
+        qset = Bot.objects.filter(id = botId)
+        if qset:
+            Bot.objects.filter(id = botId).update(botCode = botCode)
+        else:
+            return result_fail('不存在该机器人。')
+
+        path = mkpath + str(botId)
+        os.chdir(path)
+        code = open('bot.py','w',encoding='utf8')
+        code.write(botCode)
+        code.close()
+
+        res = subprocess.getoutput('pylint bot.py')
+        data = {
+            'checkResult': res
+        }
+        return result_ok(data,'代码更新成功。')
+
+
+    except:
+        traceback.print_exc()
+        return result_fail('Unexpected Error')
 
 
 
