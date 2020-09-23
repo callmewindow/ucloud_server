@@ -36,9 +36,20 @@ def images():
 @wrapper
 def containers():
     return client.containers()
-
-def createContainer(containerName):
+def transferFile(containerName,hostPath,containerPath):
+    os.system('docker cp {} {}:{}'.format(containerName,hostPath,containerPath))
+def createTestContainer(containerName):
     os.system('docker run --name {} -dit python:mirai_wyx /bin/bash'.format(containerName))
+    time.sleep(5)
+    os.system('docker exec -dit -w /home/mirai {} python main.py'.format(containerName))
+    time.sleep(10)
+    os.system('docker exec -dit -w /home/mirai {} python bot.py'.format(containerName))
+@wrapper
+def createContainer(containerName):
+    return
+    os.system('docker run --name {} -dit python:mirai /bin/bash'.format(containerName))
+    transferFile(containerName, '/home/bots/bot.py', '/home/mirai/bot.py')
+    transferFile(containerName, '/home/bots/.password', '/home/mirai/.password')
     time.sleep(5)
     os.system('docker exec -dit -w /home/mirai {} python main.py'.format(containerName))
     time.sleep(10)
@@ -51,8 +62,7 @@ def removeContainer(containerName):
     print(client.containers())
     client.close()
 
-def transferFile(containerName,hostPath,containerPath):
-    os.system('docker cp {} {}:{}'.format(containerName,hostPath,containerPath))
+
 
 if __name__ == '__main__':
     init()
