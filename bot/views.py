@@ -15,8 +15,8 @@ def create_bot(request):
         return result_fail('请输入userId！')
     if Bot.objects.filter(botName=bot.botName):
         return result_fail('该名称已被占用')
-    bot.save()
     bot.botIntro = args.get('botIntro')
+    bot.save()
     # TODO: python docker
     data = {
         'botId': bot.id
