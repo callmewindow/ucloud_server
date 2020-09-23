@@ -81,6 +81,8 @@ DATABASES = {
         'NAME': 'ucloud',
         'USER': 'ucloudadmin',
         'PASSWORD': 'Beacon123!',
+        # 'USER': 'root',
+        # 'PASSWORD': 'root',
         'HOST': 'localhost'
     }
 }

@@ -16,6 +16,7 @@ def create_bot(request):
     if Bot.objects.filter(botName=bot.botName):
         return result_fail('该名称已被占用')
     bot.save()
+    bot.botIntro = args.get('botIntro')
     # TODO: python docker
     data = {
         'botId': bot.id
@@ -38,7 +39,8 @@ def bot_info(request):
     # TODO: python docker
     data = {
         'botName': bot.botName,
-        # 'botStatus': Boolean,
+        'botStatus': bot.botStatus,
+        'botIntro': bot.botIntro,
         'botType': bot.botType,
         'botQQ': bot.botQQ,
         'botOwner': {
@@ -102,6 +104,7 @@ def get_all_bots(request):
         user = user.first()
         bot_data = {
             'botId': bot.id,
+            'botStatus': bot.botStatus,
             'botName': bot.botName,
             'botType': bot.botType,
             'botOwner': {
