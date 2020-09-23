@@ -116,8 +116,11 @@ def info(request):
             for qset in qsets:
                 bot_data = {
                     'botId': qset.id,
+                    'botQQ': qset.botQQ,
+                    'botStatus': qset.botStatus,
                     'botName': qset.botName,
                     'botType': qset.botType,
+                    'botIntro': qset.botIntro
                 }
                 qset_list.append(bot_data)
             # msg['data'] = qset_list
