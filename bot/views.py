@@ -25,7 +25,7 @@ def create_bot(request):
     path = mkpath + str(bot.id)
     createfile(path)
     os.chdir(path)
-    password = open('.password','w',encoding='utf8')
+    password = open('.passwd','w',encoding='utf8')
     password.write(bot.botQQ+ ' ' + bot.botPwd)
     password.close()
     code = open('bot.py','w',encoding='utf8')
@@ -58,11 +58,11 @@ def bot_info(request):
         'botType': bot.botType,
         'botQQ': bot.botQQ,
         'botCode': bot.botCode,
+        'botLog': '123',
         'botOwner': {
             'userId': user.id,
             'userName': user.username
-        },
-        # 'botLog': String
+        }
     }
     return result_ok(data)
 
@@ -194,7 +194,7 @@ def fork_bot(request):
         path = mkpath + str(bot.id)
         createfile(path)
         os.chdir(path)
-        password = open('.password', 'w', encoding='utf8')
+        password = open('.passwd', 'w', encoding='utf8')
         password.write(bot.botQQ + ' ' + bot.botPwd)
         password.close()
         code = open('bot.py', 'w', encoding='utf8')
