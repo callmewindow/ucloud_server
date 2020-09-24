@@ -52,7 +52,7 @@ def createTestContainer(containerName):
     os.system('docker exec -dit -w /home/mirai {} python bot.py'.format(containerName))
 def createContainer(containerName):
     transferFile(containerName, '/home/ucloud/{}/bot.py', '/home/mirai/bot.py'.format(containerName))
-    transferFile(containerName, '/home/ucloud/{}/.password', '/home/mirai/.password'.format(containerName))
+    transferFile(containerName, '/home/ucloud/{}/.passwd', '/home/mirai/.passwd'.format(containerName))
     os.system('docker run --name {} -dit python:mirai /bin/bash'.format(containerName))
 
     time.sleep(5)
@@ -70,4 +70,6 @@ def removeContainer(containerName):
 
 if __name__ == '__main__':
     init()
-    print(client.containers())
+    #print(client.containers())
+    createContainer('temp')
+    
