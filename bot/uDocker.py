@@ -36,34 +36,38 @@ def images():
 @wrapper
 def containers():
     return client.containers()
+@wrapper
+def get_container(contianerName):
+    for item in containers():
+        if containerName in item['Names']:
+            return item
 def transferFile(containerName,hostPath,containerPath):
     os.system('docker cp {} {}:{}'.format(containerName,hostPath,containerPath))
+    print('Transfered file {} from host {} to docker {}.'.format(containerName,hostPath,containerPath))
 def createTestContainer(containerName):
     os.system('docker run --name {} -dit python:mirai_wyx /bin/bash'.format(containerName))
     time.sleep(5)
     os.system('docker exec -dit -w /home/mirai {} python main.py'.format(containerName))
     time.sleep(10)
     os.system('docker exec -dit -w /home/mirai {} python bot.py'.format(containerName))
-@wrapper
 def createContainer(containerName):
-    return
+    transferFile(containerName, '/home/ucloud/{}/bot.py', '/home/mirai/bot.py'.format(containerName))
+    transferFile(containerName, '/home/ucloud/{}/.password', '/home/mirai/.password'.format(containerName))
     os.system('docker run --name {} -dit python:mirai /bin/bash'.format(containerName))
-    transferFile(containerName, '/home/bots/bot.py', '/home/mirai/bot.py')
-    transferFile(containerName, '/home/bots/.password', '/home/mirai/.password')
+
     time.sleep(5)
     os.system('docker exec -dit -w /home/mirai {} python main.py'.format(containerName))
     time.sleep(10)
     os.system('docker exec -dit -w /home/mirai {} python bot.py'.format(containerName))
 @wrapper
 def removeContainer(containerName):
-    client = docker.Client(base_url)    
     client.stop(containerName)
     client.remove_container(containerName)
-    print(client.containers())
+    #print(client.containers())
     client.close()
 
 
 
 if __name__ == '__main__':
     init()
-    images = client.images()
+    print(client.containers())
