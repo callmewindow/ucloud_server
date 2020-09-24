@@ -42,7 +42,7 @@ def get_container(containerName):
         if containerName in item['Names']:
             return item
 def transferFile(containerName,hostPath,containerPath):
-    os.system('docker cp {} {}:{}'.format(containerName,hostPath,containerPath))
+    os.system('docker cp {} {}:{}'.format(hostPath,containerName,containerPath))
     print('Transfered file {} from host {} to docker {}.'.format(containerName,hostPath,containerPath))
 def createTestContainer(containerName):
     os.system('docker run --name {} -dit python:mirai_wyx /bin/bash'.format(containerName))
