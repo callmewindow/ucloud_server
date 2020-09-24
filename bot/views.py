@@ -201,7 +201,7 @@ def fork_bot(request):
         code.write(bot.botCode)
         code.close()
         data = {
-            botId: bot.id
+            'botId': bot.id
         }
         return result_ok(data,'复制成功。')
     else:
