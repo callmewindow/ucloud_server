@@ -57,12 +57,12 @@ def bot_info(request):
         'botIntro': bot.botIntro,
         'botType': bot.botType,
         'botQQ': bot.botQQ,
+        'botCode': bot.botCode,
         'botOwner': {
             'userId': user.id,
             'userName': user.username
         },
         # 'botLog': String
-        # 'botCode': String
     }
     return result_ok(data)
 
@@ -159,4 +159,51 @@ def get_all_bots(request):
 
 
 def fork_bot(request):
+    dict = request.POST
+
+    userId = dict.get('userId')
+    botName = dict.get('botName')
+    botId = dict.get('botId')
+    botQQ = dict.get('botQQ')
+    botPwd = dict.get('botPassword')
+
+    if botName == None or botName == '':
+        return result_fail('机器人名称为空。')
+    if userId == None or userId == '':
+        return result_fail('用户ID为空。')
+    if botId == None or botId == '':
+        return result_fail('机器人ID为空')
+    if Bot.objects.filter(botName=botName):
+        return result_fail('该名称已被占用')
+    qset = Bot.objects.filter(id = botId).first()
+    if qset:
+        bot = Bot()
+        bot.botName = botName
+        bot.botStatus = qset.botStatus
+        bot.botIntro = qset.botIntro
+        bot.botType = qset.botType
+        bot.botQQ = botQQ
+        bot.botPwd = botPwd
+        bot.botPermission = qset.botPermission
+        bot.botCode = qset.botCode
+        user = User.objects.filter(id = userId).first()
+        if not user:
+            return result_fail('不存在该用户')
+        bot.userId = user
+        bot.save()
+        path = mkpath + str(bot.id)
+        createfile(path)
+        os.chdir(path)
+        password = open('.password', 'w', encoding='utf8')
+        password.write(bot.botQQ + ' ' + bot.botPwd)
+        password.close()
+        code = open('bot.py', 'w', encoding='utf8')
+        code.write(bot.botCode)
+        code.close()
+        data = {
+            botId: bot.id
+        }
+        return result_ok(data,'复制成功。')
+    else:
+        return result_fail('不存在该机器人。')
     pass
