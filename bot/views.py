@@ -4,9 +4,11 @@ import subprocess
 from bot.models import Bot
 from user.models import User
 from util.utils import *
+from bot.uDocker import *
 
-# mkpath = "E:\\2020\\pathtest\\"
-mkpath = "/home/ucloud/"
+mkpath = "E:\\2020\\pathtest\\"
+# mkpath = "/home/ucloud/"
+init()
 
 def create_bot(request):
     args = request.POST
@@ -107,7 +109,9 @@ def start_bot(request):
     if bot.first() is None:
         return result_fail('机器人不存在！')
     bot = bot.first()
-    # TODO: python docker
+
+    createContainer(bot_id)
+
     return result_ok()
 
 
@@ -120,6 +124,9 @@ def stop_bot(request):
         return result_fail('机器人不存在！')
     bot = bot.first()
     # TODO: python docker
+
+    removeContainer(bot_id)
+
     return result_ok()
 
 

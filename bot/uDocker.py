@@ -37,7 +37,7 @@ def images():
 def containers():
     return client.containers()
 @wrapper
-def get_container(contianerName):
+def get_container(containerName):
     for item in containers():
         if containerName in item['Names']:
             return item
