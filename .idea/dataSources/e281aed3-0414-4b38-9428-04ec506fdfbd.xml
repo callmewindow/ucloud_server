@@ -1121,7 +1121,7 @@
     <table id="283" parent="7" name="auth_user"/>
     <table id="284" parent="7" name="auth_user_groups"/>
     <table id="285" parent="7" name="auth_user_user_permissions"/>
-    <table id="286" parent="7" name="bit"/>
+    <table id="286" parent="7" name="bot"/>
     <table id="287" parent="7" name="botcon"/>
     <table id="288" parent="7" name="course"/>
     <table id="289" parent="7" name="course_application"/>

@@ -29,3 +29,25 @@ def check_post_method(request):
     if request.method != 'POST':
         return False, result_fail("需要POST请求！")
     return True, None
+
+def createfile(path):
+    import os
+
+    path = path.strip()
+    path = path.rstrip("\\")
+
+    isExists = os.path.exists(path)
+
+    if not isExists:
+        os.makedirs(path)
+
+        print(path + '创建成功。')
+        return True
+    else:
+        print(path + '目录已存在')
+        return False
+
+def createPy(codeStr):
+    code = open('bot.py','w',encoding='utf8')
+    code.write(codeStr)
+    code.close()
