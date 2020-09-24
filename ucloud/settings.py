@@ -79,10 +79,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ucloud',
-        # 'USER': 'ucloudadmin',
-        # 'PASSWORD': 'Beacon123!',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'USER': 'ucloudadmin',
+        'PASSWORD': 'Beacon123!',
+        # 'USER': 'root',
+        # 'PASSWORD': 'root',
         'HOST': 'localhost'
     }
 }

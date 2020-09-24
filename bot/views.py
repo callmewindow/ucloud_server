@@ -6,8 +6,8 @@ from user.models import User
 from util.utils import *
 from bot.uDocker import *
 
-mkpath = "E:\\2020\\pathtest\\"
-# mkpath = "/home/ucloud/"
+# mkpath = "E:\\2020\\pathtest\\"
+mkpath = "/home/ucloud/"
 init()
 
 def create_bot(request):
