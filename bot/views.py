@@ -227,6 +227,7 @@ def downloadCode(request):
     botId = dict.get('botId')
     path = mkpath + str(botId)+"/bot.py"
     file = open(path,'rb')
+    print(path)
     response = FileResponse(file)
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachment;filename="bot.py"'
