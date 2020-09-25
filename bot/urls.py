@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'getAll', get_all_bots),
     url(r'fork', fork_bot),
     url(r'uploadCode',upload_code),
-    url(r'download',downloadCode())
+    url(r'download',downloadCode)
 ]
