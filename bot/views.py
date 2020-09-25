@@ -60,8 +60,7 @@ def bot_info(request):
         'botType': bot.botType,
         'botQQ': bot.botQQ,
         'botCode': bot.botCode,
-        'botLog': containers(),
-        'botLog_': get_container("/" + bot_id),
+        'botLog': get_container("/" + bot_id),
         'botOwner': {
             'userId': user.id,
             'userName': user.username
@@ -103,17 +102,22 @@ def upload_code(request):
 
 
 def start_bot(request):
-    bot_id = request.POST.get('botId')
-    if bot_id is None:
-        return result_fail('请输入botId！')
-    bot = Bot.objects.filter(id=bot_id)
-    if bot.first() is None:
-        return result_fail('机器人不存在！')
-    bot = bot.first()
+    try:
+        bot_id = request.POST.get('botId')
+        if bot_id is None:
+            return result_fail('请输入botId！')
+        bot = Bot.objects.filter(id=bot_id)
+        if bot.first() is None:
+            return result_fail('机器人不存在！')
+        bot = bot.first()
 
-    createContainer(bot_id)
+        createContainer(bot_id)
+        Bot.objects.filter(id = bot.id).update(botStatus=1)
 
-    return result_ok()
+        return result_ok()
+    except:
+        traceback.print_exc()
+        return result_fail('Unexpected Error')
 
 
 def stop_bot(request):
@@ -127,8 +131,9 @@ def stop_bot(request):
     # TODO: python docker
 
     removeContainer(bot_id)
+    Bot.objects.filter(id = bot.id).update(botStatus=0)
 
-    return result_ok()
+    return result_ok('机器人已停止。')
 
 
 def delete_bot(request):
@@ -141,6 +146,7 @@ def delete_bot(request):
     bot = bot.first()
     bot.delete()
     # TODO: python docker
+    removeContainer(bot_id)
     return result_ok()
 
 
