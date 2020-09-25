@@ -61,6 +61,7 @@ def bot_info(request):
         'botQQ': bot.botQQ,
         'botCode': bot.botCode,
         'botLog': containers(),
+        'botLog': get_container(bot_id),
         'botOwner': {
             'userId': user.id,
             'userName': user.username
