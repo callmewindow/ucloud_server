@@ -1,6 +1,7 @@
 import traceback
 import os
 import subprocess
+from django.http import FileResponse
 from bot.models import Bot
 from user.models import User
 from util.utils import *
@@ -220,4 +221,13 @@ def fork_bot(request):
         return result_ok(data,'复制成功。')
     else:
         return result_fail('不存在该机器人。')
-    pass
+
+def downloadCode(request):
+    dict = request.GET
+    botId = dict.get('botId')
+    path = mkpath + str(botId)+"/bot.py"
+    file = open(path,'rb')
+    response = FileResponse(file)
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="bot.py"'
+    return response
