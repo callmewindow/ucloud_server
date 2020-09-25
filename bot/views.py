@@ -226,6 +226,7 @@ def downloadCode(request):
     dict = request.GET
     botId = dict.get('botId')
     path = mkpath + str(botId)+"/bot.py"
+    print("1"+path)
     file = open(path,'rb')
     print(path)
     response = FileResponse(file)
