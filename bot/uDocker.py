@@ -52,7 +52,6 @@ def createTestContainer(containerName):
     os.system('docker exec -dit -w /home/mirai {} python bot.py'.format(containerName))
 def createContainer(containerName):
     os.system('docker run --name {} -dit python:mirai /bin/bash'.format(containerName))
-
     time.sleep(5)
     transferFile(containerName, '/home/ucloud/{}/bot.py'.format(containerName), '/home/mirai/bot.py')
     transferFile(containerName, '/home/ucloud/{}/.passwd'.format(containerName), '/home/mirai/.passwd')

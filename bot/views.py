@@ -60,7 +60,7 @@ def bot_info(request):
         'botType': bot.botType,
         'botQQ': bot.botQQ,
         'botCode': bot.botCode,
-        'botLog': '123',
+        'botLog': get_container(bot_id),
         'botOwner': {
             'userId': user.id,
             'userName': user.username
