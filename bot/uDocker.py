@@ -55,10 +55,14 @@ def createContainer(containerName):
     time.sleep(5)
     transferFile(containerName, '/home/ucloud/{}/bot.py'.format(containerName), '/home/mirai/bot.py')
     transferFile(containerName, '/home/ucloud/{}/.passwd'.format(containerName), '/home/mirai/.passwd')
+    transferFile(containerName,'/home/new.sh','/home/mirai/new.sh')
+    transferFile(containerName,'/home/next.sh','/home/mirai/next.sh')
     time.sleep(5)
-    os.system('docker exec -dit -w /home/mirai {} python main.py>>/home/main.out'.format(containerName))
+    os.system('docker exec -dit -w /home/mirai {} sh new.sh'.format(containerName))
+    #os.system('docker exec -dit -w /home/mirai {} python main.py>>/home/main.out'.format(containerName))
     time.sleep(10)
-    os.system('docker exec -dit -w /home/mirai {} python bot.py>>/home/bot.out'.format(containerName))
+    os.system('docker exec -dit -w /home/mirai {} sh next.sh'.format(containerName))
+    #os.system('docker exec -dit -w /home/mirai {} python bot.py>>/home/bot.out'.format(containerName))
 @wrapper
 def removeContainer(containerName):
     client.stop(containerName)
