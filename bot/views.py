@@ -53,9 +53,12 @@ def bot_info(request):
     if user.first() is None:
         return result_fail()
     user = user.first()
-    os.system('docker cp {}:/home/mirai/main.out /home/main.out'.format(bot_id))
-    file = open('/home/main.out','r',encoding='utf8')
-    res = file.read()
+    if bot.botStatus == False:
+        res = 'null'
+    else:
+        os.system('docker cp {}:/home/mirai/main.out /home/main.out'.format(bot_id))
+        file = open('/home/main.out','r',encoding='utf8')
+        res = file.read()
     # TODO: python docker
     data = {
         'botName': bot.botName,
