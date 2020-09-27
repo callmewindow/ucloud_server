@@ -68,7 +68,7 @@ def removeContainer(containerName):
     client.stop(containerName)
     client.remove_container(containerName)
     #print(client.containers())
-    client.close()
+    #client.close()
 
 
 
