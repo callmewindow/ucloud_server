@@ -200,7 +200,7 @@ def fork_bot(request):
     if qset:
         bot = Bot()
         bot.botName = botName
-        bot.botStatus = qset.botStatus
+        bot.botStatus = 0
         bot.botIntro = qset.botIntro
         bot.botType = qset.botType
         bot.botQQ = botQQ
