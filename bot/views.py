@@ -151,9 +151,9 @@ def delete_bot(request):
     if bot.first() is None:
         return result_fail('机器人不存在！')
     bot = bot.first()
+    removeContainer(bot.id)
     bot.delete()
     # TODO: python docker
-    removeContainer(bot_id)
     return result_ok()
 
 
