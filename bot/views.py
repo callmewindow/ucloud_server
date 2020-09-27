@@ -159,7 +159,6 @@ def delete_bot(request):
     bot = bot.first()
     if bot.botStatus == 1:
         removeContainer(bot_id)
-    time.sleep(5)
     Bot.objects.filter(id = bot_id).delete()
     # TODO: python docker
     return result_ok('')
