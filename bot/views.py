@@ -117,6 +117,8 @@ def start_bot(request):
         if bot.first() is None:
             return result_fail('机器人不存在！')
         bot = bot.first()
+        if bot.botStatus == 1:
+            return result_fail('机器人已启动')
 
         createContainer(bot_id)
         Bot.objects.filter(id = bot.id).update(botStatus=1)
@@ -135,6 +137,10 @@ def stop_bot(request):
     if bot.first() is None:
         return result_fail('机器人不存在！')
     bot = bot.first()
+
+    if bot.botStatus == 0:
+        return result_fail('机器人未启动')
+
     # TODO: python docker
 
     removeContainer(bot_id)
@@ -152,9 +158,10 @@ def delete_bot(request):
         return result_fail('机器人不存在！')
     bot = bot.first()
     removeContainer(bot.id)
+    time.sleep(5)
     bot.delete()
     # TODO: python docker
-    return result_ok()
+    return result_ok('')
 
 
 def get_all_bots(request):
