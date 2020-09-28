@@ -59,8 +59,8 @@ def bot_info(request):
     else:
         os.system('docker cp {}:/home/mirai/main.out /home/main.out'.format(bot_id))
         file = open('/home/main.out','r',encoding='utf8')
-        #res = file.read()
-        res = get_last_n_lines('/home/main.out',100)
+        res = file.read()
+        # res = get_last_n_lines('/home/main.out',100)
     # TODO: python docker
     data = {
         'botName': bot.botName,
