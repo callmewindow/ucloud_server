@@ -1,6 +1,7 @@
 import traceback
 import os
 import subprocess
+import string
 from django.http import FileResponse
 from bot.models import Bot
 from user.models import User
@@ -58,7 +59,8 @@ def bot_info(request):
     else:
         os.system('docker cp {}:/home/mirai/main.out /home/main.out'.format(bot_id))
         file = open('/home/main.out','r',encoding='utf8')
-        res = file.read()
+        #res = file.read()
+        res = get_last_n_lines('/home/main.out',100)
     # TODO: python docker
     data = {
         'botName': bot.botName,
@@ -246,3 +248,32 @@ def downloadCode(request):
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachment;filename="bot.py"'
     return response
+
+
+def get_last_n_lines(logfile, n):
+    n = string.atoi(n)
+    blk_size_max = 4096
+    n_lines = []
+    with open(logfile, 'rb') as fp:
+        fp.seek(0, os.SEEK_END)
+        cur_pos = fp.tell()
+        while cur_pos > 0 and len(n_lines) < n:
+            blk_size = min(blk_size_max, cur_pos)
+            fp.seek(cur_pos - blk_size, os.SEEK_SET)
+            blk_data = fp.read(blk_size)
+            assert len(blk_data) == blk_size
+            lines = blk_data.split('\n')
+
+            # adjust cur_pos
+            if len(lines) > 1 and len(lines[0]) > 0:
+                n_lines[0:0] = lines[1:]
+                cur_pos -= (blk_size - len(lines[0]))
+            else:
+                n_lines[0:0] = lines
+                cur_pos -= blk_size
+
+            fp.seek(cur_pos, os.SEEK_SET)
+
+    if len(n_lines) > 0 and len(n_lines[-1]) == 0:
+        del n_lines[-1]
+    return n_lines[-n:]
