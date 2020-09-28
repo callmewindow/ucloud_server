@@ -251,7 +251,7 @@ def downloadCode(request):
 
 
 def get_last_n_lines(logfile, n):
-    n = string.atoi(n)
+    n = int(n)
     blk_size_max = 4096
     n_lines = []
     with open(logfile, 'rb') as fp:
