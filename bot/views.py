@@ -263,7 +263,7 @@ def get_last_n_lines(logfile, n):
             blk_data = fp.read(blk_size)
             assert len(blk_data) == blk_size
             blk_data = str(blk_data,encoding='utf8')
-            lines = blk_data.split(b'\n')
+            lines = blk_data.split('\n')
 
             # adjust cur_pos
             if len(lines) > 1 and len(lines[0]) > 0:
