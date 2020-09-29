@@ -8,6 +8,7 @@ from user.models import User
 from util.utils import *
 from bot.uDocker import *
 
+
 # mkpath = "E:\\2020\\pathtest\\"
 mkpath = "/home/ucloud/"
 init()
@@ -254,7 +255,7 @@ def get_last_n_lines(logfile, n):
     n = int(n)
     blk_size_max = 4096
     n_lines = []
-    with open(logfile, 'rb') as fp:
+    with open(logfile, 'rb',encoding='utf-8') as fp:
         fp.seek(0, os.SEEK_END)
         cur_pos = fp.tell()
         while cur_pos > 0 and len(n_lines) < n:
