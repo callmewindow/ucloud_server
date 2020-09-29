@@ -69,7 +69,7 @@ def bot_info(request):
         'botType': bot.botType,
         'botQQ': bot.botQQ,
         'botCode': bot.botCode,
-        'botLog': res,
+        #'botLog': res,
         'botOwner': {
             'userId': user.id,
             'userName': user.username
