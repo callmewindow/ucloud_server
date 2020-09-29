@@ -59,8 +59,8 @@ def bot_info(request):
     else:
         os.system('docker cp {}:/home/mirai/main.out /home/main.out'.format(bot_id))
         file = open('/home/main.out','r',encoding='utf8')
-        res = file.read()
-        # res = get_last_n_lines('/home/main.out',100)
+        #res = file.read()
+        res = get_last_n_lines('/home/main.out',100)
     # TODO: python docker
     data = {
         'botName': bot.botName,
@@ -262,7 +262,7 @@ def get_last_n_lines(logfile, n):
             fp.seek(cur_pos - blk_size, os.SEEK_SET)
             blk_data = fp.read(blk_size)
             assert len(blk_data) == blk_size
-            lines = blk_data.split('\n')
+            lines = blk_data.split(b'\n')
 
             # adjust cur_pos
             if len(lines) > 1 and len(lines[0]) > 0:
