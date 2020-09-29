@@ -255,9 +255,7 @@ def get_last_n_lines(logfile, n):
     n = int(n)
     blk_size_max = 4096
     n_lines = []
-    with open(logfile, 'rb') as fp:
-        fp.close()
-        fp = open(logfile, 'rb',encoding='utf8')
+    with open(logfile, 'r',encoding='utf8') as fp:
         fp.seek(0, os.SEEK_END)
         cur_pos = fp.tell()
         while cur_pos > 0 and len(n_lines) < n:
@@ -265,7 +263,7 @@ def get_last_n_lines(logfile, n):
             fp.seek(cur_pos - blk_size, os.SEEK_SET)
             blk_data = fp.read(blk_size)
             assert len(blk_data) == blk_size
-            blk_data = str(blk_data,encoding='utf8')
+            #blk_data = str(blk_data,encoding='utf8')
             lines = blk_data.split('\n')
 
             # adjust cur_pos
