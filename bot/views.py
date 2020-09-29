@@ -69,7 +69,7 @@ def bot_info(request):
         'botType': bot.botType,
         'botQQ': bot.botQQ,
         'botCode': bot.botCode,
-        #'botLog': res,
+        'botLog': res,
         'botOwner': {
             'userId': user.id,
             'userName': user.username
@@ -262,6 +262,7 @@ def get_last_n_lines(logfile, n):
             fp.seek(cur_pos - blk_size, os.SEEK_SET)
             blk_data = fp.read(blk_size)
             assert len(blk_data) == blk_size
+            blk_data = str(blk_data,encoding='utf8')
             lines = blk_data.split(b'\n')
 
             # adjust cur_pos
