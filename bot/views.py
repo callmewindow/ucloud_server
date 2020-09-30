@@ -59,6 +59,7 @@ def bot_info(request):
         res = 'null'
     else:
         os.system('docker cp {}:/home/mirai/main.out /home/main.out'.format(bot_id))
+        time.sleep(5)
         #file = open('/home/main.out','r')
         #res = file.read()
         res = get_last_n_lines('/home/main.out',100)
